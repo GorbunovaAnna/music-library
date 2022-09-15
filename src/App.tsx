@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import "./App.scss";
+import { decrement, increment } from "./features/counter/counterSlice";
+import { getCountState } from "./features/counter/selectors";
+import { getTokenFromUrl, loginUrl } from "./spotify";
 
 function App() {
+  const countState = useSelector(getCountState);
+  const dispatch = useDispatch();
+  console.log(11, getTokenFromUrl());
+  const res = getTokenFromUrl();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <a href={loginUrl}>Sign in with spotify</a>
+      <p>Count: {countState}</p>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
     </div>
   );
 }
