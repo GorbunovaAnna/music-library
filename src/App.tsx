@@ -1,21 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
-import { decrement, increment } from "./features/counter/counterSlice";
-import { getCountState } from "./features/counter/selectors";
+import { Login } from "./pages/login/login";
+import { Main } from "./pages/main/main";
 import { getTokenFromUrl, loginUrl } from "./spotify";
 
 function App() {
-  const countState = useSelector(getCountState);
-  const dispatch = useDispatch();
-  console.log(11, getTokenFromUrl());
-  const res = getTokenFromUrl();
   return (
-    <div className="App">
-      <a href={loginUrl}>Sign in with spotify</a>
-      <p>Count: {countState}</p>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        {/* <Route path="*" element={ <NotFoundPage/> }/>    */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
