@@ -9,14 +9,26 @@ export const spotifyURL = 'https://api.spotify.com/v1';
 export const getTokenFromUrl = (): IAuthObject => {
     return window.location.hash.substring(1).split('&').reduce((acc: any, item: string) => {
         let parts = item.split('=');
-        
+
         acc[parts[0]] = decodeURIComponent(parts[1]);
         return acc;
     }, {})
 }
 
 
-export interface IAuthObject{
+export const setTokenToCookie = () => {
+
+};
+
+
+
+export const getTokenFromCookie = () => {
+    if ('net') {
+        // redirect
+    }
+}
+
+export interface IAuthObject {
     access_token: string;
     expires_in: string;
     token_type: string;

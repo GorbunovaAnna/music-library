@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import albumsSlice from './redux/albumsSlice';
 import authSlice from './redux/authSlice';
-
+export const useAppDispatch = () => useDispatch<typeof store.dispatch>()
 export const store = configureStore({
   reducer: {
     auth: authSlice,
+    albums: albumsSlice,
   },
 })
 
