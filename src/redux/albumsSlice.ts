@@ -10,7 +10,8 @@ const res = getTokenFromUrl();
 export const fetchAlbums = createAsyncThunk(
     'albums/albumsStatus',
     async (data, { getState, rejectWithValue }) => {
-        const { auth: { access_token } } = getState() as RootState;
+        // const { auth: { access_token } } = getState() as RootState;
+        const access_token = '';
         try {
             const res = await axios.get(`${spotifyURL}/browse/new-releases`, { headers: { 'Authorization': `Bearer ${access_token}` } });
             if (res.status !== 200) {
