@@ -1,62 +1,47 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { SpotifyApi } from "spotify-api";
-import { getTokenFromUrl, spotifyURL } from "../spotify";
-import axios from 'axios';
-import { RootState } from '../store';
+import { createSlice, createAsyncThunk, SerializedError } from '@reduxjs/toolkit';
+import { spotifyURL } from "../spotify";
+import axios, { AxiosError } from 'axios';
+import { getCookie } from '../cookie';
 
-// const authState = useSelector(getAuthCredentials);
-const res = getTokenFromUrl();
-
-export const fetchAlbums = createAsyncThunk(
+export const fetchNewAlbums = createAsyncThunk(
     'albums/albumsStatus',
     async (data, { getState, rejectWithValue }) => {
-        // const { auth: { access_token } } = getState() as RootState;
-        const access_token = '';
-        try {
-            const res = await axios.get(`${spotifyURL}/browse/new-releases`, { headers: { 'Authorization': `Bearer ${access_token}` } });
-            if (res.status !== 200) {
-                rejectWithValue('error');
-            }else{
-                console.log('axiosres', res.data)
-                return res.data as SpotifyApi.ListOfNewReleasesResponse;
-            }
-        } catch (e) {
-            rejectWithValue(e);
+        const access_token = getCookie('token');
+        const res = await axios.get(`${spotifyURL}/artists/{id}/albums`, { headers: { 'Authorization': `Bearer ${access_token}` } });
+        if (res.status !== 200) {
+            rejectWithValue('error');
+        } else {
+            console.log('!!!', res.data)
+            return res.data as SpotifyApi.ListOfNewReleasesResponse;
         }
-
     }
 )
-
 interface AlbumsState {
     albums: SpotifyApi.ListOfNewReleasesResponse | undefined;
-    loading: 'pending' | 'succeeded' | 'error';
-    errors: string;
+    loading: boolean;
+    error: AxiosError | null;
 }
-
-
 const initialState = {
-    albums: {},
-    loading: 'pending',
-    errors: '',
+    albums: undefined,
+    loading: false,
+    error: null,
 } as AlbumsState;
 
 export const albumsSlice = createSlice({
     name: 'albums',
     initialState,
     reducers: {
-        // addAlbums: (state, action) => {
-
-        // }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchAlbums.fulfilled, (state, action) => {
+        builder.addCase(fetchNewAlbums.fulfilled, (state, action) => {
             //@ts-ignore
             console.log('extra reducers, fulfilled, state: ', state, '\naction', action);
             state.albums = action.payload;
+            state.error = null;
 
-        }).addCase(fetchAlbums.rejected, (state, action) => {
+        }).addCase(fetchNewAlbums.rejected, (state, action) => {
             console.log('fetch rejecteddddd', state, action);
-            state.errors = 'error';
+            state.error = action.error as AxiosError;
         })
     }
 })
