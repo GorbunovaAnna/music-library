@@ -7,7 +7,7 @@ import { getCookie } from "../../cookie";
 import axios from "axios";
 import debounce from "lodash/debounce";
 
-export const MySearch = () => {
+export const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [isShowModal, setIsShowModal] = useState(false);
   const [data, setData] = useState<SpotifyApi.SearchResponse | null>(null);
@@ -26,6 +26,10 @@ export const MySearch = () => {
     // debounceFn();
   }
 
+  function closeModal() {
+    setIsShowModal(false);
+  }
+
   return (
     <div className={styles.wrapper}>
       <input
@@ -40,7 +44,7 @@ export const MySearch = () => {
       <button className={styles.button} onClick={sendRequest}>
         <ImSearch />
       </button>
-      {isShowModal && <SearchResultPopUp data={data}/>}
+      {isShowModal && <SearchResultPopUp data={data} closeModal={closeModal}/>}
     </div>
   );
 };

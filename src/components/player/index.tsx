@@ -17,7 +17,7 @@ export const Player = (props: any) => {
       const player = new window.Spotify.Player({
         name: "Web Playback SDK",
         getOAuthToken: (cb: any) => {
-          console.log(access_token)
+          console.log(111, access_token)
           cb(access_token);
         },
         volume: 0.5,
@@ -39,7 +39,7 @@ export const Player = (props: any) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container222">
         <div className="main-wrapper"></div>
       </div>
     </>

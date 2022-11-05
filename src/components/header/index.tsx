@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './index.module.scss';
-import { MySearch } from "../../components/my-search";
+import { Search } from "../search";
 
 
 
@@ -8,7 +8,7 @@ export const Header = () => {
     return (
         <div className={styles.wrapper}>
             <img className={styles.logo} src="/images/logo.png" alt="logo" />
-            <MySearch />
+            <Search />
             <nav>
                 <ul>
                     <li><a>lorem</a></li>

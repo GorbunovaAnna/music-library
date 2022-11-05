@@ -23,6 +23,12 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
+          {/* <Route path="/artist/:id" element={<LoginPage />} /> */}
+          {/* <Route path="/albums/:id" element={<LoginPage />} /> */}
+          {/* https://api.spotify.com/v1/artists/{id}/albums
+          And then request the tracks of each album (have a look here):
+
+          https://api.spotify.com/v1/albums/{id}/tracks */}
           <Route path="*" element={ <NotFoundPage/> }/>   
         </Routes>
       </BrowserRouter>

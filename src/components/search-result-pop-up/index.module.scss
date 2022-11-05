@@ -1,21 +1,55 @@
-// .backdrop{
-//     background-color: rgba(0, 0, 0, 0.5);
-//     position: fixed;
-//     top: 0;
-//     bottom: 0;
-//     right: 0;
-//     left: 0;
-//     right: 0;
-//     display: none;
-// }
-.wrapper {
-  background: #fff;
-  width: 100vw;
-  position: fixed;
-  top: 120px;
-  left: 0;
-  z-index: 10;
-  p {
-    color: black;
-  }
+.backdrop{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 120px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    .wrapper {
+      background: #1e1e1e linear-gradient(270deg, #000000 -2.92%, rgba(0, 0, 0, 0) 100%);
+      width: 100vw;
+      position: fixed;
+      top: 120px;
+      left: 0;
+      z-index: 10;
+      padding: 30px 50px 30px 50px;
+      .icon {
+        color:  rgb(248, 200, 35);
+      }
+      p {
+        color: antiquewhite;
+      }
+      .closeBtn {
+        color: rgb(248, 200, 35);
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 25px;
+        height: 25px;
+        svg{
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+    .resultElement{
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding-bottom: 8px;
+      img, svg{
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+      svg{
+        width: 20px;
+        height: 20px;
+      }
+      p{
+        text-transform: capitalize;
+      }
+    }
 }
