@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./index.module.scss";
 import { ImMusic } from "react-icons/im";
 import { FiXSquare } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 interface PropsSearch {
   data: SpotifyApi.SearchResponse | null;
@@ -10,6 +11,7 @@ interface PropsSearch {
 
 export const SearchResultPopUp = (props: PropsSearch) => {
   console.log(props);
+  const navigate = useNavigate();
 
   const getAllArtists = (arr: any) => {
     const res = arr.reduce((acc: string, el: { name: string }) => {
@@ -17,6 +19,11 @@ export const SearchResultPopUp = (props: PropsSearch) => {
       return acc;
     }, "");
     return res;
+  };
+
+  const handleNavigate = (url: string) => {
+    props.closeModal();
+    navigate(url);
   };
 
   return (
@@ -41,14 +48,17 @@ export const SearchResultPopUp = (props: PropsSearch) => {
         <h2>Artists</h2>
         {props.data?.artists?.items.map((el) => {
           return (
-            <div onClick={()=>{console.log(el.id)}} className={styles.resultElement}>
+            <div
+              onClick={() => {
+                handleNavigate(`/artist/${el.id}`);
+              }}
+              className={styles.resultElement}
+            >
               <img src={el.images[2].url} />
               <p>{el.name}</p>
             </div>
           );
         })}
-        {/* <img src={props.data?.artists?.items[0].images[2]} alt="" />
-        <p>{props.data?.artists?.items[0].name}</p> */}
         <div className={styles.closeBtn} onClick={props.closeModal}>
           <FiXSquare />
         </div>
