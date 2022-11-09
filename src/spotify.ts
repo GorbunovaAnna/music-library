@@ -4,7 +4,42 @@ export const authEndPoint = 'https://accounts.spotify.com/authorize';
 const redirectURI = 'http://localhost:3000/login';
 const clientID = "9b12720a1b644d62a1ff965d72dc45fd";
 
-const scopes = ['streaming', 'user-read-email', 'user-read-playback-state', "user-read-currently-playing", "user-read-playback-state", 'playlist-read-collaborative', 'playlist-modify-public', 'playlist-read-private', 'app-remote-controls', 'web-playback'];
+// const scopes = [
+//     'streaming',
+//     'user-read-email',
+//     'user-read-playback-state',
+//     "user-read-currently-playing",
+//     "user-read-playback-state",
+//     'playlist-read-collaborative',
+//     'playlist-modify-public',
+//     'playlist-read-private',
+//     'app-remote-controls',
+//     'web-playback',
+//     'user-top-read',
+//     'user-follow-read',
+//     'user-modify-playback-state'
+// ];
+
+const scopes = ['ugc-image-upload',
+    'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'app-remote-control',
+    'streaming',
+    'playlist-read-private',
+    'playlist-read-collaborative',
+    'playlist-modify-private',
+    'playlist-modify-public',
+    'user-follow-modify',
+    'user-follow-read',
+    'user-read-playback-position',
+    'user-top-read',
+    'user-read-recently-played',
+    'user-library-modify',
+    'user-library-read',
+    'user-read-email',
+    'user-read-private',
+]
 
 export const loginUrl = `${authEndPoint}?client_id=${clientID}&redirect_uri=${redirectURI}&scopes=${scopes.join('%20')}&response_type=token&show_dialog=true`;
 export const spotifyURL = 'https://api.spotify.com/v1';

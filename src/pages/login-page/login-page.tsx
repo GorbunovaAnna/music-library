@@ -41,7 +41,7 @@ const navigate = useNavigate();
 
     if (res?.access_token?.length) {
       
-      setCookie("token", res.access_token, { "max-age": 3600 }); 
+      setCookie("token", res.access_token, { "max-age": 3400 }); 
       navigate('/');
     }
   }, []);

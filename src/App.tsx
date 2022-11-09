@@ -24,7 +24,7 @@ function App() {
             }
           />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/artist/:id" element={<ArtistPage />} />
+          <Route path="/artist/:id" element={<PrivateRoute><ArtistPage /></PrivateRoute>} />
           {/* <Route path="/albums/:id" element={<AlbumsPage />} /> */}
           {/* https://api.spotify.com/v1/artists/{id}/albums
           And then request the tracks of each album (have a look here):
