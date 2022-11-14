@@ -30,6 +30,7 @@ export const Main = () => {
   return (
     <div className={styles.wrapper}>
       {/* {recommendations || releases && <Carousel  albums={releases.albums.items} />} */}
+      <h2>New releases</h2>
       {releases && <Carousel albums={releases.albums.items} />}
       {isLoading && <Loader />}
       {/* <Player /> */}

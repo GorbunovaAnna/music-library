@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import styles from "./index.module.scss";
 import { ImSearch } from "react-icons/im";
 import { SearchResultPopUp } from "../search-result-pop-up";
 import { spotifyURL } from "../../spotify";
 import { getCookie } from "../../cookie";
 import axios from "axios";
-import debounce from "lodash/debounce";
+// import debounce from "lodash/debounce";
 
 export const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -45,7 +45,7 @@ export const Search = () => {
       <button className={styles.button} onClick={sendRequest}>
         <ImSearch />
       </button>
-      {isShowModal && <SearchResultPopUp data={data} closeModal={closeModal}/>}
+      {isShowModal && <SearchResultPopUp data={data} closeModal={closeModal} inputValue={inputValue}/>}
     </div>
   );
 };

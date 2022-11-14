@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "./index.module.scss";
 import { ImMusic } from "react-icons/im";
 import { FiXSquare } from "react-icons/fi";
@@ -7,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 interface PropsSearch {
   data: SpotifyApi.SearchResponse | null;
   closeModal: () => void;
+  inputValue: string;
 }
 
 export const SearchResultPopUp = (props: PropsSearch) => {
@@ -24,6 +24,7 @@ export const SearchResultPopUp = (props: PropsSearch) => {
   const handleNavigate = (url: string) => {
     props.closeModal();
     navigate(url);
+    props.inputValue = "";
   };
 
   return (
@@ -33,10 +34,10 @@ export const SearchResultPopUp = (props: PropsSearch) => {
     >
       <div className={styles.wrapper}>
         <h1>Searching results:</h1>
-        <h2>tracks</h2>
+        <h2>Tracks</h2>
         {props.data?.tracks?.items.map((item, index) => {
           return (
-            <div className={styles.resultElement}>
+            <div  key={item.id} className={styles.resultElement}>
               <div className={styles.icon}>
                 <ImMusic />
               </div>
@@ -49,6 +50,7 @@ export const SearchResultPopUp = (props: PropsSearch) => {
         {props.data?.artists?.items.map((el) => {
           return (
             <div
+              key={el.id}
               onClick={() => {
                 handleNavigate(`/artist/${el.id}`);
               }}

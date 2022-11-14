@@ -14,7 +14,13 @@
       top: 120px;
       left: 0;
       z-index: 10;
-      padding: 30px 50px 30px 50px;
+      padding: 30px 200px;
+      h1 {
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-bottom: 20px;
+      }
       .icon {
         color:  rgb(248, 200, 35);
       }
@@ -25,9 +31,10 @@
         color: rgb(248, 200, 35);
         position: absolute;
         top: 30px;
-        right: 30px;
+        right: 60px;
         width: 25px;
         height: 25px;
+        cursor: pointer;
         svg{
           width: 100%;
           height: auto;
