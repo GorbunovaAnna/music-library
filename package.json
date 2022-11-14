@@ -2,6 +2,7 @@
   "name": "music-library",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -13,6 +14,9 @@
     "@types/react-dom": "^18.0.6",
     "@types/spotify-api": "^0.0.19",
     "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "firebase": "^9.9.4",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -24,12 +28,14 @@
     "react-scripts": "5.0.1",
     "react-spotify-web-playback": "^0.10.0",
     "sass": "^1.54.8",
+    "spotify-web-api-node": "^5.0.2",
     "swiper": "^8.4.4",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-server": "node ./server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -53,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.187"
+    "@types/lodash": "^4.14.187",
+    "@types/spotify-web-api-node": "^5.0.7"
   }
 }

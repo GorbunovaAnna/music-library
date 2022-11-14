@@ -15,30 +15,42 @@ import { Loader } from "../../components/loader";
 import { Player } from "../../components/player";
 import SpotifyPlayer from "react-spotify-web-playback";
 import { getTokenFromCookie } from "../../spotify";
+import SpotifyWebApi from 'spotify-web-api-node';
+import useAuth from "../../hooks/useAuth";
 
-export const Main = () => {
+interface props {
+  code: string;
+}
+
+export const Main = ({code}: props) => {
+ 
+  const accessToken = useAuth(code);
+  console.log(accessToken)
   const dispatch = useAppDispatch();
   const releases = useSelector(getNewReleases);
   const recommendations = useSelector(getRecommendations);
   const isLoading = useSelector(getReleasesLoadingState);
+  const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.REACT_APP_CLIENT_ID,
+  });
 
   useEffect(() => {
     dispatch(fetchNewReleases());
     dispatch(fetchRecommendations());
+    console.log('ssssss', spotifyApi.getAccessToken());
   }, []);
 
   return (
     <div className={styles.wrapper}>
       {/* {recommendations || releases && <Carousel  albums={releases.albums.items} />} */}
-      <h2>New releases</h2>
       {releases && <Carousel albums={releases.albums.items} />}
       {isLoading && <Loader />}
       {/* <Player /> */}
 
-      {/* <SpotifyPlayer
+       <SpotifyPlayer
         token={getTokenFromCookie()}
-        uris={["spotify:album:6Fto97eXkutUmTGMM5wHfg"]}
-      /> */}
+        uris={["spotify:track:2iekuoyleq7mwntvag3bil"]}
+      />
     </div>
   );
 };

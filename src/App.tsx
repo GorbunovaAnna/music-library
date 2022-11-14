@@ -11,6 +11,8 @@ import { PrivateRoute } from "./compound/private-route/index";
 import { Header } from "./components/header";
 
 function App() {
+  const code = new URLSearchParams(window.location.search).get('code');
+  
   return (
     <>
       <BrowserRouter>
@@ -19,9 +21,9 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute>
-                <Main />
-              </PrivateRoute>
+             
+                code ? <Main code={code}/> : <LoginPage />
+             
             }
           />
           <Route path="/login" element={<LoginPage />} />

@@ -1,8 +1,8 @@
 import { getCookie } from "./cookie";
 
 export const authEndPoint = 'https://accounts.spotify.com/authorize';
-const redirectURI = 'http://localhost:3000/login';
-const clientID = "9b12720a1b644d62a1ff965d72dc45fd";
+const redirectURI = process.env.REACT_APP_REDIRECT_URI;
+const clientID = process.env.REACT_APP_CLIENT_ID;
 
 // const scopes = [
 //     'streaming',
@@ -20,7 +20,7 @@ const clientID = "9b12720a1b644d62a1ff965d72dc45fd";
 //     'user-modify-playback-state'
 // ];
 
-const scopes = ['ugc-image-upload',
+const scopes = [
     'user-read-playback-state',
     'user-modify-playback-state',
     'user-read-currently-playing',
@@ -41,7 +41,7 @@ const scopes = ['ugc-image-upload',
     'user-read-private',
 ]
 
-export const loginUrl = `${authEndPoint}?client_id=${clientID}&redirect_uri=${redirectURI}&scopes=${scopes.join('%20')}&response_type=token&show_dialog=true`;
+export const loginUrl = `${authEndPoint}?client_id=${clientID}&redirect_uri=${redirectURI}&scopes=${scopes.join('%20')}&response_type=code&show_dialog=true`;
 export const spotifyURL = 'https://api.spotify.com/v1';
 export const getTokenFromUrl = (): IAuthObject => {
     return window.location.hash.substring(1).split('&').reduce((acc: any, item: string) => {
