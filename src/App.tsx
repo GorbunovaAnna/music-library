@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
 import { LoginPage } from "./pages/login-page/login-page";
 import { ArtistPage } from "./pages/artist-page";
+import { AlbumPage } from "./pages/album-page";
 import { Main } from "./pages/main/index";
 import { NotFoundPage } from "./pages/not-found-page";
 import { getTokenFromUrl, loginUrl } from "./spotify";
@@ -25,11 +26,7 @@ function App() {
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/artist/:id" element={<PrivateRoute><ArtistPage /></PrivateRoute>} />
-          {/* <Route path="/albums/:id" element={<AlbumsPage />} /> */}
-          {/* https://api.spotify.com/v1/artists/{id}/albums
-          And then request the tracks of each album (have a look here):
-
-          https://api.spotify.com/v1/albums/{id}/tracks */}
+          <Route path="/album/:id" element={<PrivateRoute><AlbumPage /></PrivateRoute>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

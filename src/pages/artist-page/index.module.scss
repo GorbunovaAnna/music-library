@@ -1,12 +1,15 @@
 .wrapper {
+    padding: 30px 200px;
     .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
-        padding: 0 150px;
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+       
         img {
-            
+            border-radius: 15px;
         }
         .title {
             font-size: 40px;
@@ -17,7 +20,9 @@
     .list {
         display: flex;
         align-items: center;
+        
         margin: 0 0 20px 0;
+        cursor: pointer;
         img {
             margin-right: 20px;
         }

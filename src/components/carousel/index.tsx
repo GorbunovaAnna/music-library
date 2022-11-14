@@ -27,7 +27,6 @@ export const Carousel = (props: props) => {
         {props.albums?.map((el) => (
           <SwiperSlide key={el.id} >
             <div className={styles.slide}>
-              <h1>{el.id}</h1>
               <img src={el.images[1].url} alt="" />
               <p>{el.name}</p>
               <p>{el.artists[0].name}</p>

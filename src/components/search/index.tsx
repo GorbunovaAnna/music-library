@@ -19,6 +19,7 @@ export const Search = () => {
     console.log ('search', res);
     setData(res.data);
     setIsShowModal(true);
+    
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
