@@ -24,6 +24,7 @@
     "react-scripts": "5.0.1",
     "react-spotify-web-playback": "^0.10.0",
     "sass": "^1.54.8",
+    "spotify-web-api-node": "^5.0.2",
     "swiper": "^8.4.4",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"

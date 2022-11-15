@@ -29,6 +29,7 @@ export const Search = () => {
 
   function closeModal() {
     setIsShowModal(false);
+    setInputValue('');
   }
 
   return (

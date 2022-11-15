@@ -15,10 +15,8 @@
       left: 0;
       z-index: 10;
       padding: 30px 200px;
-      h1 {
-        margin-bottom: 20px;
-      }
       h2 {
+        margin-top: 20px;
         margin-bottom: 20px;
       }
       .icon {
@@ -46,6 +44,9 @@
       align-items: center;
       justify-content: start;
       padding-bottom: 8px;
+      .artistName {
+        text-transform: uppercase;
+      }
       img, svg{
         width: 40px;
         height: 40px;
@@ -57,8 +58,14 @@
         cursor: pointer;
       }
       p{
-        text-transform: capitalize;
+        text-transform: lowercase;
         cursor: pointer;
+      }
+      p::first-letter {
+        text-transform: uppercase;
+      }
+      p:hover {
+        color: rgb(248, 200, 35);
       }
     }
 }

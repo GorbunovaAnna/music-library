@@ -7,7 +7,7 @@ export const fetchRecommendations = createAsyncThunk(
     'recommendations/recommendationsStatus',
     async (data, { getState, rejectWithValue }) => {
         const access_token = getCookie('token');
-        const res = await axios.get(`${spotifyURL}/me/top/artists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
+        const res = await axios.get(`${spotifyURL}/recommendations?seed_tracks`, { headers: { 'Authorization': `Bearer ${access_token}` } });
         if (res.status !== 200) {
             rejectWithValue('error');
         } else {

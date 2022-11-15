@@ -24,8 +24,9 @@ export const SearchResultPopUp = (props: PropsSearch) => {
   const handleNavigate = (url: string) => {
     props.closeModal();
     navigate(url);
-    props.inputValue = "";
+    // props.inputValue = "";
   };
+
 
   return (
     <div
@@ -41,8 +42,15 @@ export const SearchResultPopUp = (props: PropsSearch) => {
               <div className={styles.icon}>
                 <ImMusic />
               </div>
-              <p>{item.name}&nbsp;</p>
-              <p>{getAllArtists(item.artists)}</p>
+              <p>{item.name}&nbsp;&ndash;&nbsp;</p>
+              <p className={styles.artistName} >
+                {item.artists.map((el) =>(
+                  <span onClick={() => {
+                    console.log('www', el.id);
+                    handleNavigate(`/artist/${el.id}`);
+                  }}>{el.name} &nbsp;</span>
+                ))}
+              </p>
             </div>
           );
         })}

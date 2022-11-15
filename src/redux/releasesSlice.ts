@@ -12,7 +12,8 @@ export const fetchNewReleases = createAsyncThunk(
         const res = await axios.get(`${spotifyURL}/browse/new-releases`, { headers: { 'Authorization': `Bearer ${access_token}` } });
         if (res.status !== 200) {
             thunkApi.rejectWithValue('error');
-        } else {
+        } else {console.log('releases',res.data)
+
             return res.data as SpotifyApi.ListOfNewReleasesResponse;
         }
     }

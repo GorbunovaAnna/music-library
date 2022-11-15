@@ -30,11 +30,16 @@ import React, { useEffect } from "react";
 import { getTokenFromUrl, loginUrl } from "../../spotify";
 import { getCookie, setCookie } from "../../cookie";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store";
+import { fetchUserInfo } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
+import { getUserInfo } from "../../redux/selectors";
 
 export const LoginPage = () => {
   
 const navigate = useNavigate();
-
+const dispatch = useAppDispatch();
+const userInfo = useSelector(getUserInfo);
 
   useEffect(() => {
     const res = getTokenFromUrl();
@@ -44,6 +49,8 @@ const navigate = useNavigate();
       setCookie("token", res.access_token, { "max-age": 3400 }); 
       navigate('/');
     }
+
+   
   }, []);
 
   return (

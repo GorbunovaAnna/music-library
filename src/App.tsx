@@ -9,6 +9,7 @@ import { NotFoundPage } from "./pages/not-found-page";
 import { getTokenFromUrl, loginUrl } from "./spotify";
 import { PrivateRoute } from "./compound/private-route/index";
 import { Header } from "./components/header";
+import { MyPlaylistsPage } from './pages/my-playlists-page/index';
 
 function App() {
   return (
@@ -16,17 +17,11 @@ function App() {
       <BrowserRouter>
         <Header></Header>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <Main />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/" element={<PrivateRoute><Main /></PrivateRoute>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/artist/:id" element={<PrivateRoute><ArtistPage /></PrivateRoute>} />
           <Route path="/album/:id" element={<PrivateRoute><AlbumPage /></PrivateRoute>} />
+          <Route path="/playlists/" element={<PrivateRoute><MyPlaylistsPage /></PrivateRoute>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
