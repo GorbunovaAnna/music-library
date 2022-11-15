@@ -39,11 +39,11 @@ const navigate = useNavigate();
   useEffect(() => {
     const res = getTokenFromUrl();
 
-    if (res?.access_token?.length) {
+    // if (res?.access_token?.length) {
       
-      setCookie("token", res.access_token, { "max-age": 3400 }); 
-      navigate('/');
-    }
+    //   setCookie("token", res.access_token, { "max-age": 3400 }); 
+    //   navigate('/');
+    // }
   }, []);
 
   return (

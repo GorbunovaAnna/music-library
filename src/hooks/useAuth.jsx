@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getCookie, setCookie } from '../cookie';
 
 const useAuth = (code) => {
   const [accessToken, setAccessToken] = useState();
@@ -8,25 +9,33 @@ const useAuth = (code) => {
 
   useEffect(() => {
     (async () => {
-      try {
-        const {
-          data: { access_token, refresh_token, expires_in },
-        } = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
-          code,
-        });
-        setAccessToken(access_token);
-        setRefreshToken(refresh_token);
-        setExpiresIn(expires_in);
-        window.history.pushState({}, null, '/');
-      } catch {
-        window.location = '/';
+      
+      if(code){
+        try {
+          const {
+            data: { access_token, refresh_token, expires_in },
+          } = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
+            code,
+          });
+          setAccessToken(access_token);
+          setRefreshToken(refresh_token);
+          setExpiresIn(expires_in);
+          setCookie("refresh_token", refresh_token, { "max-age": expires_in }); 
+          setCookie("token", access_token, { "max-age": expires_in }); 
+          window.history.pushState({}, null, '/');
+        } catch {
+          window.location = '/';
+        }
+      }else if(getCookie('refresh_token') && !getCookie('token')){
+        console.log('test', getCookie('refresh_token'))
+        setRefreshToken(getCookie('refresh_token'))
       }
     })();
   }, [code]);
-
+  
   useEffect(() => {
-    if (!refreshToken || !expiresIn) return;
-    const interval = setInterval(async () => {
+    if (!refreshToken) return;
+    (async () => {
       try {
         const {
           data: { access_token, expires_in },
@@ -38,12 +47,11 @@ const useAuth = (code) => {
       } catch {
         window.location = '/';
       }
-    }, (expiresIn - 60) * 1000);
+    })();
 
-    return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);
 
-  return accessToken;
+  return accessToken || getCookie('token');
 };
 
 export default useAuth;

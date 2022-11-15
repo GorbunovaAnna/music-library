@@ -21,8 +21,10 @@ function App() {
           <Route
             path="/"
             element={
-             
-                code ? <Main code={code}/> : <LoginPage />
+             <PrivateRoute>
+
+               <Main code={code || ''} />
+             </PrivateRoute>
              
             }
           />

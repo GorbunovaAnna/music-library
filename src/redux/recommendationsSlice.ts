@@ -12,7 +12,7 @@ export const fetchRecommendations = createAsyncThunk(
             rejectWithValue('error');
         } else {
             console.log('Recommendations', res.data)
-            return res.data as SpotifyApi.RecommendationsFromSeedsResponse; // !!!!!!!!!!!
+            return res.data as SpotifyApi.RecommendationsFromSeedsResponse;
         }
     }
 )

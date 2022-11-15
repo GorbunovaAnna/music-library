@@ -14,7 +14,7 @@ const PORT = 3001;
 
 app.post('/login', async (req, res) => {
   const { code } = req.body;
-
+  console.log('code', code)
   const spotifyApi = new SpotifyWebApi({
     redirectUri: process.env.REDIRECT_URI,
     clientId: process.env.CLIENT_ID,
@@ -26,6 +26,7 @@ app.post('/login', async (req, res) => {
       body: { access_token, refresh_token, expires_in },
     } = await spotifyApi.authorizationCodeGrant(code);
 
+    console.log(access_token, '\n', refresh_token, '\n', expires_in)
     res.json({ access_token, refresh_token, expires_in });
   } catch (err) {
     console.log(err);
