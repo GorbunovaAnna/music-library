@@ -5,11 +5,13 @@ import axios from "axios";
 import { spotifyURL } from "../../spotify";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
+import { useSpotifyApi } from "../../hooks/useSpotifyApi";
 
 export const ArtistPage = () => {
   const [albums, setAlbums] = useState<SpotifyApi.AlbumObjectSimplified[]>([]);
   const [artist, setArtist] = useState<SpotifyApi.SingleArtistResponse>();
   const { id } = useParams();
+  const spotifyApi = useSpotifyApi();
   const navigate = useNavigate();
 
   const handleNavigate = (url: string) => {
@@ -18,25 +20,35 @@ export const ArtistPage = () => {
 
   useEffect(() => {
     const access_token = getCookie("token");
-    axios
-      .get(`${spotifyURL}/artists/${id}/albums`, {
-        headers: { Authorization: `Bearer ${access_token}` },
+    if(id){
+      spotifyApi.getArtistAlbums(id).then(res=>{
+        setAlbums(res.body.items);
+        console.log("albums", res.body.items);
       })
-      .then((res) => {
-        setAlbums(res.data.items);
-        console.log("albums", res.data.items);
-      });
-    axios
-      .get(`${spotifyURL}/artists/${id}`, {
-        headers: { Authorization: `Bearer ${access_token}` },
+      spotifyApi.getArtist(id).then(res=>{
+        setArtist(res.body);
+        console.log("artist", res.body);
       })
-      .then((res) => {
-        setArtist(res.data);
-        console.log("artist", res.data);
-      })
-      .catch((e) => {
-        console.log("is er", e);
-      });
+    }
+    // axios
+    //   .get(`${spotifyURL}/artists/${id}/albums`, {
+    //     headers: { Authorization: `Bearer ${access_token}` },
+    //   })
+    //   .then((res) => {
+    //     setAlbums(res.data.items);
+    //     console.log("albums", res.data.items);
+    //   });
+    // axios
+    //   .get(`${spotifyURL}/artists/${id}`, {
+    //     headers: { Authorization: `Bearer ${access_token}` },
+    //   })
+    //   .then((res) => {
+    //     setArtist(res.data);
+    //     console.log("artist", res.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log("is er", e);
+    //   });
   }, [id]);
 
   return (
