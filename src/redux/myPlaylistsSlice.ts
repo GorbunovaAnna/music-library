@@ -1,3 +1,4 @@
+import { useSpotifyApi } from './../hooks/useSpotifyApi';
 import { spotifyURL } from '../spotify';
 import { createSlice, createAsyncThunk, SerializedError } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
@@ -5,21 +6,29 @@ import { getCookie } from '../cookie';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from './selectors';
 import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
+import SpotifyWebApi from 'spotify-web-api-node';
 
 // import SpotifyWebApi from 'spotify-web-api-node';
 
 export const fetchMyPlaylists = createAsyncThunk(
     'myPlaylists/myPlaylistsStatus',
-    async (data: string, thunkApi) => {
-        const access_token = getCookie('token');
+    async (id: string, thunkApi) => {
+        // const access_token = getCookie('token');
+        const spotifyApi = new SpotifyWebApi({
+            clientId: process.env.REACT_APP_CLIENT_ID,
+        });
+        const token = getCookie('token')
+        if (token) {
+            spotifyApi.setAccessToken(token);
+        }
+        const res = await spotifyApi.getUserPlaylists(id)
 
-        console.log('ewqewq', data)
-        const res = await axios.get(`${spotifyURL}/users/${data}/playlists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
-        if (res.status !== 200) {
+        // const res = await axios.get(`${spotifyURL}/users/${id}/playlists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
+        if (res.statusCode !== 200) {
             thunkApi.rejectWithValue('error');
         } else {
-            console.log('myPlaylists',res.data);
-            return res.data as SpotifyApi.ListOfUsersPlaylistsResponse;
+            console.log('myPlaylists', res.body);
+            return res.body;
         }
 
         // const spotifyApi = new SpotifyWebApi
@@ -53,7 +62,7 @@ export const myPlaylistsSlice = createSlice({
         }).addCase(fetchMyPlaylists.rejected, (state, action) => {
             state.error = action.error as AxiosError;
             state.loading = false;
-        }).addCase(fetchMyPlaylists.pending, (state)=>{
+        }).addCase(fetchMyPlaylists.pending, (state) => {
             state.loading = true;
         })
     }

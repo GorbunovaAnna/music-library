@@ -1,0 +1,10 @@
+.wrapper {
+    padding: 40px;
+    .title {
+        margin-bottom: 20px;
+    }
+    .playlistContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

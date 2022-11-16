@@ -34,9 +34,9 @@ export const Header = () => {
       </nav>
 
       <div className={styles.userInfo}>
-        <div className={styles.userAvatar}>
+        {userInfo && <div className={styles.userAvatar}>
           <img  src="" alt="" />
-        </div>
+        </div>}
         <p className={styles.userName}>{userInfo?.display_name}</p>
         <button className={styles.btn}>Log out</button>
       </div>

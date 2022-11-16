@@ -1,26 +1,42 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch } from "../../store";
 import { useSelector } from "react-redux";
-import { getUserInfo } from "../../redux/selectors";
+import { getUserInfo, getMyPlaylists, getReleasesLoadingState } from "../../redux/selectors";
 import { fetchMyPlaylists } from "../../redux/myPlaylistsSlice";
-import styles from './index.module.scss';
+import { MyPlaylist } from "../../components/my-playlist";
+import { Loader } from "../../components/loader";
+import styles from "./index.module.scss";
 
 export const MyPlaylistsPage = () => {
-    const dispatch = useAppDispatch();
-    const userInfo = useSelector(getUserInfo);
-    
+  const dispatch = useAppDispatch();
+  const userInfo = useSelector(getUserInfo);
+  const myPlaylists = useSelector(getMyPlaylists);
+  const isLoading = useSelector(getReleasesLoadingState);
+  console.log("33333", myPlaylists);
 
-    useEffect(() => {
-        console.log('ewqeqws')
-        if(userInfo?.id){
-            dispatch(fetchMyPlaylists(userInfo.id));
-        }
-    }, [userInfo]);
+  useEffect(() => {
+    console.log("ewqeqws");
+    if (userInfo?.id) {
+      dispatch(fetchMyPlaylists(userInfo.id));
+    }
+  }, [userInfo]);
 
-    return(
-        <div className={styles.wrapper}>
-            <h1>My playlists</h1>
-
-        </div>
-    )
-}
+  return (
+    <div className={styles.wrapper}>
+      <h1 className={styles.title}>My playlists</h1>
+      {isLoading && <Loader />}
+      <div className={styles.playlistContainer}>
+        {myPlaylists?.items.map((el) => {
+          return (
+            <MyPlaylist 
+              key={el.id}
+              title={el.name}
+              image={el.images[0].url}
+              tracks={el.tracks.href}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
