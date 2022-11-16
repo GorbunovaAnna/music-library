@@ -19,7 +19,7 @@ export const ArtistPage = () => {
   };
 
   useEffect(() => {
-    const access_token = getCookie("token");
+    // const access_token = getCookie("token");
     if(id){
       spotifyApi.getArtistAlbums(id).then(res=>{
         setAlbums(res.body.items);

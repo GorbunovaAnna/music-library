@@ -12,16 +12,14 @@ const useAuth = (code) => {
       
       if(code){
         try {
-          const {
-            data: { access_token, refresh_token, expires_in },
-          } = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
+          const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
             code,
           });
-          setAccessToken(access_token);
-          setRefreshToken(refresh_token);
-          setExpiresIn(expires_in);
-          setCookie("refresh_token", refresh_token, { "max-age": expires_in }); 
-          setCookie("token", access_token, { "max-age": expires_in }); 
+          setAccessToken(res.data.access_token);
+          setRefreshToken(res.data.refresh_token);
+          setExpiresIn(res.data.expires_in);
+          setCookie("refresh_token", res.data.refresh_token, { "max-age": res.data.expires_in }); 
+          setCookie("token", res.data.access_token, { "max-age": res.data.expires_in }); 
           window.history.pushState({}, null, '/');
         } catch {
           window.location = '/';
@@ -44,6 +42,7 @@ const useAuth = (code) => {
         });
         setAccessToken(access_token);
         setExpiresIn(expires_in);
+        setCookie("token", res.data.access_token, { "max-age": res.data.expires_in }); 
       } catch {
         window.location = '/';
       }

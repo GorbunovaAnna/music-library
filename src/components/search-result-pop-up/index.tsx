@@ -45,8 +45,7 @@ export const SearchResultPopUp = (props: PropsSearch) => {
               <p>{item.name}&nbsp;&ndash;&nbsp;</p>
               <p className={styles.artistName} >
                 {item.artists.map((el) =>(
-                  <span onClick={() => {
-                    console.log('www', el.id);
+                  <span key={el.id} onClick={() => {
                     handleNavigate(`/artist/${el.id}`);
                   }}>{el.name} &nbsp;</span>
                 ))}
@@ -64,7 +63,7 @@ export const SearchResultPopUp = (props: PropsSearch) => {
               }}
               className={styles.resultElement}
             >
-              <img src={el.images[2].url} />
+              {el.images.length && <img src={el.images[2].url} />}
               <p>{el.name}</p>
             </div>
           );

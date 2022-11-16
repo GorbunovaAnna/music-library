@@ -4,6 +4,7 @@ import releasesSlice from './redux/releasesSlice';
 import userInfoSlice from './redux/userSlice';
 import myPlaylistsSlice from './redux/myPlaylistsSlice';
 import recommendationsSlice from './redux/recommendationsSlice';
+import playerSlice from './redux/playerSlice';
 export const useAppDispatch = () => useDispatch<typeof store.dispatch>()
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     releases: releasesSlice,
     userInfo: userInfoSlice,
     myPlaylists: myPlaylistsSlice,
+    player: playerSlice,
   },
 })
 

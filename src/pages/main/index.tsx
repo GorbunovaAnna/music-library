@@ -11,9 +11,9 @@ import { Carousel } from "../../components/carousel";
 import styles from "./index.module.scss";
 import { fetchRecommendations } from "../../redux/recommendationsSlice";
 import { Loader } from "../../components/loader";
-import SpotifyPlayer from "react-spotify-web-playback";
-import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from "../../hooks/useAuth";
+import SpotifyWebApi from 'spotify-web-api-node';
+
 
 
 interface props {
@@ -40,7 +40,7 @@ export const Main = ({code}: props) => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
     dispatch(fetchNewReleases());
-    dispatch(fetchRecommendations());
+    // dispatch(fetchRecommendations());
   }, [accessToken]);
 
   return (
@@ -50,10 +50,7 @@ export const Main = ({code}: props) => {
       {isLoading && <Loader />}
       {/* <Player /> */}
 
-       {accessToken && <SpotifyPlayer
-        token={accessToken}
-        uris={"spotify:track:2JbOwPPXejbYYzantCrMRG"}
-      />}
+       
     </div>
   );
 };

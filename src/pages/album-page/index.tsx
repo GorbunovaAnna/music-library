@@ -7,12 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { FiHeart, FiPlay, FiPlus } from "react-icons/fi";
 import styles from "./index.module.scss";
 import { ContextMenu } from "../../components/context-menu";
+import { useAppDispatch } from "../../store";
+import { addTrack } from "../../redux/playerSlice";
 
-// https://api.spotify.com/v1/albums/{id}/tracks
-
-// FiHeart
-// FiPlus
-// FiPlay
 
 export const AlbumPage = () => {
   const [tracks, setTracks] = useState<SpotifyApi.TrackObjectSimplified[]>([]);
@@ -21,6 +18,7 @@ export const AlbumPage = () => {
   const [isActiveTrack, setIsActiveTrack] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   function clickHandler(url: string) {
     navigate(url);
@@ -38,8 +36,9 @@ export const AlbumPage = () => {
     setIsActiveTrack(id);
   };
 
-  const openTrack = (id: string) => {
-    console.log("open", id);
+  const openTrack = (uri: string) => {
+    console.log("open", uri );
+    dispatch(addTrack(uri));
   };
 
   useEffect(() => {
@@ -86,13 +85,12 @@ export const AlbumPage = () => {
               key={el.id}
             >
               <div
-                onClick={() => openTrack(el.id)}
                 className={styles.trackNameWrapper}
               >
                 {isActiveTrack  !== el.id && (
                   <p className={styles.trackNumber}>{el.track_number}</p>
                 )}
-                { isActiveTrack === el.id && <FiPlay className={styles.trackIconPlay} />}
+                { isActiveTrack === el.id && <FiPlay className={styles.trackIconPlay} onClick={() => openTrack(el.uri)}/>}
 
                 <p className={styles.trackName}>{el.name}</p>
               </div>
