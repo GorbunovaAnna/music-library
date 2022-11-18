@@ -1,7 +1,9 @@
 import styles from "./index.module.scss";
-import { ImMusic } from "react-icons/im";
+import { FiPlay } from "react-icons/fi";
 import { FiXSquare } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store";
+import { addTrack } from "../../redux/playerSlice";
 
 interface PropsSearch {
   data: SpotifyApi.SearchResponse | null;
@@ -12,6 +14,7 @@ interface PropsSearch {
 export const SearchResultPopUp = (props: PropsSearch) => {
   console.log(props);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const getAllArtists = (arr: any) => {
     const res = arr.reduce((acc: string, el: { name: string }) => {
@@ -27,6 +30,13 @@ export const SearchResultPopUp = (props: PropsSearch) => {
     // props.inputValue = "";
   };
 
+  const openTrack = (uri: string | undefined) => {
+    if (uri) {
+      console.log("open", uri);
+      dispatch(addTrack(uri));
+    }
+  };
+
 
   return (
     <div
@@ -40,7 +50,10 @@ export const SearchResultPopUp = (props: PropsSearch) => {
           return (
             <div  key={item.id} className={styles.resultElement}>
               <div className={styles.icon}>
-                <ImMusic />
+              <FiPlay
+                    className={styles.trackIconPlay}
+                    onClick={() => openTrack(item.uri)}
+                  />
               </div>
               <p>{item.name}&nbsp;&ndash;&nbsp;</p>
               <p className={styles.artistName} >

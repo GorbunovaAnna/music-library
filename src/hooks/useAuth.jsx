@@ -42,7 +42,7 @@ const useAuth = (code) => {
         });
         setAccessToken(access_token);
         setExpiresIn(expires_in);
-        setCookie("token", res.data.access_token, { "max-age": res.data.expires_in }); 
+        setCookie("token", access_token, { "max-age": expiresIn }); 
       } catch {
         window.location = '/';
       }

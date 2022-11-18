@@ -19,6 +19,11 @@ export const Footer = ({code}: props) => {
         <SpotifyPlayer
           token={accessToken}
           uris={track}
+          styles={{
+            bgColor: 'black',
+            color: 'rgb(248, 200, 35)', 
+            
+          }}
         />
       )}
     </div>

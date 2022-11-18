@@ -21,6 +21,7 @@ code {
 }
 body {
   color: antiquewhite;
+  padding-bottom: 60px;
 }
 li {
   list-style: none;

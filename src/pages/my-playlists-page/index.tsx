@@ -30,9 +30,7 @@ export const MyPlaylistsPage = () => {
           return (
             <MyPlaylist 
               key={el.id}
-              title={el.name}
-              image={el.images[0].url}
-              tracks={el.tracks.href}
+              playlist={el}
             />
           );
         })}

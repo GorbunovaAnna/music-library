@@ -20,7 +20,7 @@
 .btn {
   background-color: rgba(0, 0, 0, 0.022);
   border: 1px solid rgb(248, 200, 35);
-  border-radius: 1.5rem;
+  border-radius: 15px;
   box-sizing: border-box;
   color: rgb(248, 200, 35);
   cursor: pointer;
@@ -38,12 +38,13 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  &:hover {
+    background-color: rgb(248, 200, 35);
+    color: #fff;
+  }
 }
 
-.btn:hover {
-  background-color: rgb(248, 200, 35);
-  color: #fff;
-}
+
 
 // @media (min-width: 768px) {
 //   .btn {

@@ -46,9 +46,9 @@ export const Main = ({code}: props) => {
   return (
     <div className={styles.wrapper}>
       {/* {recommendations || releases && <Carousel  albums={releases.albums.items} />} */}
+      <h3>New Releases</h3>
       {releases && <Carousel albums={releases.albums.items} />}
       {isLoading && <Loader />}
-      {/* <Player /> */}
 
        
     </div>

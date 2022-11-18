@@ -19,28 +19,28 @@ export const authEndPoint = 'https://accounts.spotify.com/authorize';
 // //     'user-modify-playback-state'
 // // ];
 
-// const scopes = [
-//     'user-read-playback-state',
-//     'user-modify-playback-state',
-//     'user-read-currently-playing',
-//     'app-remote-control',
-//     'streaming',
-//     'playlist-read-private',
-//     'playlist-read-collaborative',
-//     'playlist-modify-private',
-//     'playlist-modify-public',
-//     'user-follow-modify',
-//     'user-follow-read',
-//     'user-read-playback-position',
-//     'user-top-read',
-//     'user-read-recently-played',
-//     'user-library-modify',
-//     'user-library-read',
-//     'user-read-email',
-//     'user-read-private',
-// ]
+const scopes = [
+    'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'app-remote-control',
+    'streaming',
+    'playlist-read-private',
+    'playlist-read-collaborative',
+    'playlist-modify-private',
+    'playlist-modify-public',
+    'user-follow-modify',
+    'user-follow-read',
+    'user-read-playback-position',
+    'user-top-read',
+    'user-read-recently-played',
+    'user-library-modify',
+    'user-library-read',
+    'user-read-email',
+    'user-read-private',
+].join('%20');
 
-export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
+export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=${scopes}`;
 export const spotifyURL = 'https://api.spotify.com/v1';
 export const getTokenFromUrl = (): IAuthObject => {
     return window.location.hash.substring(1).split('&').reduce((acc: any, item: string) => {

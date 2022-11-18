@@ -9,31 +9,57 @@ import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 // import SpotifyWebApi from 'spotify-web-api-node';
+const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.REACT_APP_CLIENT_ID,
+});
+const token = getCookie('token')
+if (token) {
+    spotifyApi.setAccessToken(token);
+}
 
 export const fetchMyPlaylists = createAsyncThunk(
     'myPlaylists/myPlaylistsStatus',
-    async (id: string, thunkApi) => {
+    async (id: string = '', thunkApi) => {
         // const access_token = getCookie('token');
-        const spotifyApi = new SpotifyWebApi({
-            clientId: process.env.REACT_APP_CLIENT_ID,
-        });
-        const token = getCookie('token')
-        if (token) {
-            spotifyApi.setAccessToken(token);
-        }
-        const res = await spotifyApi.getUserPlaylists(id)
-
-        // const res = await axios.get(`${spotifyURL}/users/${id}/playlists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
-        if (res.statusCode !== 200) {
-            thunkApi.rejectWithValue('error');
-        } else {
-            console.log('myPlaylists', res.body);
-            return res.body;
-        }
-
-        // const spotifyApi = new SpotifyWebApi
+        const res = await spotifyApi.getUserPlaylists();
+        return res.body;
     }
 )
+
+export const addPlaylistToSpotify = createAsyncThunk(
+    'addPlaylist/addPlaylistStatus',
+    async (playlistName: string, thunkApi) => {
+        // const access_token = getCookie('token');
+        const res = await spotifyApi.createPlaylist(playlistName);
+        return res.body;
+    }
+)
+
+// export const deletePlaylistToSpotify = createAsyncThunk(
+//     'deletePlaylist/deletePlaylistStatus',
+//     async (data, thunkApi) => {
+//         // const access_token = getCookie('token');
+//         const spotifyApi = new SpotifyWebApi({
+//             clientId: process.env.REACT_APP_CLIENT_ID,
+//         });
+//         const token = getCookie('token')
+//         if (token) {
+//             spotifyApi.setAccessToken(token);
+//         }
+//         const res = await spotifyApi.unfollowPlaylist();
+//         console.log(res);
+
+//         // const res = await axios.get(`${spotifyURL}/users/${id}/playlists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
+//         if (res.statusCode !== 201) {
+//             thunkApi.rejectWithValue('error');
+//         } else {
+//             console.log('create playlist', res);
+//             return res.body;
+//         }
+
+//         // const spotifyApi = new SpotifyWebApi
+//  }
+// )
 
 interface MyPlaylistsState {
     myPlaylists: SpotifyApi.ListOfUsersPlaylistsResponse | undefined;
@@ -52,6 +78,9 @@ export const myPlaylistsSlice = createSlice({
     name: 'myPlaylists',
     initialState,
     reducers: {
+        // addPlaylist: (state , action) => {
+        //     state.myPlaylists?.items.push(action.payload);
+        // }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchMyPlaylists.fulfilled, (state, action) => {
@@ -68,4 +97,5 @@ export const myPlaylistsSlice = createSlice({
     }
 })
 
+// export const { addPlaylist } = myPlaylistsSlice.actions;
 export default myPlaylistsSlice.reducer;

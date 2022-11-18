@@ -1,34 +1,60 @@
 .wrapper {
-    padding: 30px 200px;
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        padding-bottom: 30px;
-        border-bottom: 3px solid rgba(255, 255, 255, 0.1);
-       
-        img {
-            border-radius: 15px;
-        }
-        .title {
-            font-size: 40px;
-            text-transform: uppercase;
-            align-self: flex-start;
-        }
+  padding: 30px 200px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+
+    img {
+      border-radius: 15px;
     }
-    .list {
-        display: flex;
-        align-items: center;
-        
-        margin: 0 0 20px 0;
-        cursor: pointer;
-        img {
-            margin-right: 20px;
-        }
-        p {
-            margin-right: 10px;
-        }
+    .title {
+      font-size: 40px;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+  }
+  .list {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    &:hover {
+      color: rgb(248, 200, 35);
+    }
+    .imageContainer{
+      width: 64px;
+      height: 64px;
+      margin-right: 20px;
+    }
+    .playContainer {
+     
+      width: 64px;
+      height: 64px;
+      padding: 10px;
+      
+      background-color: rgba(0, 0, 0, 0.179);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .trackIconPlay {
+        color: rgb(248, 200, 35);
+        width: 40px;
+        height: 40px;
+        margin-left: 6px;
+      }
     }
 
+    margin: 0 0 20px 0;
+    cursor: pointer;
+    img {
+      margin-right: 20px;
+    }
+    p {
+      margin-right: 10px;
+    }
+  }
 }

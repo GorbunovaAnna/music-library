@@ -9,24 +9,30 @@ import styles from "./index.module.scss";
 import { ContextMenu } from "../../components/context-menu";
 import { useAppDispatch } from "../../store";
 import { addTrack } from "../../redux/playerSlice";
-
+import { title } from "process";
+import { useSelector } from "react-redux";
+import { getMyPlaylists } from "../../redux/selectors";
+import { addPlaylistToSpotify, fetchMyPlaylists } from "../../redux/myPlaylistsSlice";
+import { Modal } from "../../components/modal";
 
 export const AlbumPage = () => {
   const [tracks, setTracks] = useState<SpotifyApi.TrackObjectSimplified[]>([]);
   const [album, setAlbum] = useState<SpotifyApi.SingleAlbumResponse>();
   const [isContextMenu, setIsContextMenu] = useState("");
   const [isActiveTrack, setIsActiveTrack] = useState("");
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const playlists = useSelector(getMyPlaylists);
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  function clickHandler(url: string) {
+  const clickHandler = (url: string) => {
     navigate(url);
-  }
-  function showContextMenu(id: string) {
+  };
+  const showContextMenu = (id: string) => {
     console.log("id", id);
     setIsContextMenu(id);
-  }
+  };
 
   const closeContextMenu = () => {
     setIsContextMenu("");
@@ -36,9 +42,26 @@ export const AlbumPage = () => {
     setIsActiveTrack(id);
   };
 
-  const openTrack = (uri: string) => {
-    console.log("open", uri );
-    dispatch(addTrack(uri));
+  const openTrack = (uri: string | undefined) => {
+    if (uri) {
+      console.log("open", uri);
+      dispatch(addTrack(uri));
+    }
+  };
+
+  const openModal = () => {
+    closeContextMenu();
+    setIsOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const addPlaylist = (inputValue :string) => {
+    console.log(inputValue)
+    dispatch(addPlaylistToSpotify(inputValue));
+
   };
 
   useEffect(() => {
@@ -59,6 +82,7 @@ export const AlbumPage = () => {
         console.log("album2222", res.data);
         setAlbum(res.data);
       });
+    dispatch(fetchMyPlaylists(""));
   }, []);
 
   return (
@@ -68,11 +92,19 @@ export const AlbumPage = () => {
     >
       <div className={styles.header}>
         <img src={album?.images[1].url} alt="" />
-        <div>
-          <h1>{album?.name}</h1>
-          <h2 onClick={() => clickHandler(`/artist/${album?.artists[0].id}`)}>
-            {album?.artists[0].name}
-          </h2>
+        <div className={styles.titleContainer}>
+          <div>
+            <h1>{album?.name}</h1>
+            <h2 onClick={() => clickHandler(`/artist/${album?.artists[0].id}`)}>
+              {album?.artists[0].name}
+            </h2>
+          </div>
+          <div
+            className={styles.playContainer}
+            onClick={() => openTrack(album?.uri)}
+          >
+            <FiPlay className={styles.trackIconPlay} />
+          </div>
         </div>
       </div>
       {tracks && (
@@ -84,13 +116,16 @@ export const AlbumPage = () => {
               className={styles.item}
               key={el.id}
             >
-              <div
-                className={styles.trackNameWrapper}
-              >
-                {isActiveTrack  !== el.id && (
+              <div className={styles.trackNameWrapper}>
+                {isActiveTrack !== el.id && (
                   <p className={styles.trackNumber}>{el.track_number}</p>
                 )}
-                { isActiveTrack === el.id && <FiPlay className={styles.trackIconPlay} onClick={() => openTrack(el.uri)}/>}
+                {isActiveTrack === el.id && (
+                  <FiPlay
+                    className={styles.trackIconPlay}
+                    onClick={() => openTrack(el.uri)}
+                  />
+                )}
 
                 <p className={styles.trackName}>{el.name}</p>
               </div>
@@ -100,11 +135,18 @@ export const AlbumPage = () => {
                   <FiPlus className={styles.add} />
                 </div>
               </div>
-              {isContextMenu === el.id && <ContextMenu id={el.id} />}
+              {isContextMenu === el.id && (
+                <ContextMenu
+                  playlists={playlists?.items}
+                  id={el.id}
+                  openModal={openModal}
+                />
+              )}
             </div>
           ))}
         </div>
       )}
+      {isOpenModal && <Modal closeModal={closeModal} addPlaylist={addPlaylist}/>}
     </div>
   );
 };
