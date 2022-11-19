@@ -27,7 +27,6 @@ export const Carousel = (props: props) => {
   };
 
   const openTrack = (uri: string) => {
-    console.log("open", uri);
     dispatch(addTrack(uri));
   };
 

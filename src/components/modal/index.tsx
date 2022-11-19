@@ -11,7 +11,6 @@ export const Modal = ({ closeModal, addPlaylist }: Props) => {
   const [inputValue, setInputValue] = useState('');
 
   const wrapperClick = (e: Event) => {
-    console.log(e);
   };
  
   return (

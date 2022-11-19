@@ -27,7 +27,6 @@ export const ArtistPage = () => {
     setIsActiveTracks(id);
   };
   const openTrack = (uri: string) => {
-    console.log("open", uri);
     dispatch(addTrack(uri));
   };
 
@@ -36,11 +35,10 @@ export const ArtistPage = () => {
     if (id) {
       spotifyApi.getArtistAlbums(id).then((res) => {
         setAlbums(res.body.items);
-        console.log("albums", res.body.items);
+       
       });
       spotifyApi.getArtist(id).then((res) => {
         setArtist(res.body);
-        console.log("artist", res.body);
       });
     }
     // axios

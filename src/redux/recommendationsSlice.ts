@@ -11,7 +11,6 @@ export const fetchRecommendations = createAsyncThunk(
         if (res.status !== 200) {
             rejectWithValue('error');
         } else {
-            console.log('Recommendations', res.data)
             return res.data as SpotifyApi.RecommendationsFromSeedsResponse;
         }
     }
@@ -34,13 +33,10 @@ export const recommendationsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchRecommendations.fulfilled, (state, action) => {
-            //@ts-ignore
-            console.log('extra reducers, fulfilled, state: ', state, '\naction', action);
             state.recommendations = action.payload;
             state.error = null;
 
         }).addCase(fetchRecommendations.rejected, (state, action) => {
-            console.log('fetch Recommendations', state, action);
             state.error = action.error as AxiosError;
         })
     }

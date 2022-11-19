@@ -30,7 +30,6 @@ export const AlbumPage = () => {
     navigate(url);
   };
   const showContextMenu = (id: string) => {
-    console.log("id", id);
     setIsContextMenu(id);
   };
 
@@ -44,7 +43,6 @@ export const AlbumPage = () => {
 
   const openTrack = (uri: string | undefined) => {
     if (uri) {
-      console.log("open", uri);
       dispatch(addTrack(uri));
     }
   };
@@ -59,7 +57,6 @@ export const AlbumPage = () => {
   };
 
   const addPlaylist = (inputValue :string) => {
-    console.log(inputValue)
     dispatch(addPlaylistToSpotify(inputValue));
 
   };
@@ -72,14 +69,12 @@ export const AlbumPage = () => {
       })
       .then((res) => {
         setTracks(res.data.items);
-        console.log("tracks", res.data.items);
       });
     axios
       .get(`${spotifyURL}/albums/${id}`, {
         headers: { Authorization: `Bearer ${access_token}` },
       })
       .then((res) => {
-        console.log("album2222", res.data);
         setAlbum(res.data);
       });
     dispatch(fetchMyPlaylists(""));
@@ -138,7 +133,6 @@ export const AlbumPage = () => {
               {isContextMenu === el.id && (
                 <ContextMenu
                   playlists={playlists?.items}
-                  id={el.id}
                   openModal={openModal}
                 />
               )}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./index.module.scss";
-import { FiMusic, FiPlay, FiTrash2 } from "react-icons/fi";
+import { FiMusic, FiPlay,FiTrash2 } from "react-icons/fi";
 import { useAppDispatch } from "../../store";
 import { addTrack } from "../../redux/playerSlice";
 
@@ -13,7 +13,6 @@ export const MyPlaylist = ({ playlist }: Props) => {
   const dispatch = useAppDispatch();
 
   const openTrack = (uri: string) => {
-    console.log("open", uri);
     dispatch(addTrack(uri));
   };
 

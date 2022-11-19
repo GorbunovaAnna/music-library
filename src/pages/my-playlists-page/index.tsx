@@ -12,10 +12,8 @@ export const MyPlaylistsPage = () => {
   const userInfo = useSelector(getUserInfo);
   const myPlaylists = useSelector(getMyPlaylists);
   const isLoading = useSelector(getReleasesLoadingState);
-  console.log("33333", myPlaylists);
 
   useEffect(() => {
-    console.log("ewqeqws");
     if (userInfo?.id) {
       dispatch(fetchMyPlaylists(userInfo.id));
     }

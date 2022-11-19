@@ -12,17 +12,8 @@ interface PropsSearch {
 }
 
 export const SearchResultPopUp = (props: PropsSearch) => {
-  console.log(props);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const getAllArtists = (arr: any) => {
-    const res = arr.reduce((acc: string, el: { name: string }) => {
-      acc += el.name + " ";
-      return acc;
-    }, "");
-    return res;
-  };
 
   const handleNavigate = (url: string) => {
     props.closeModal();
@@ -32,7 +23,6 @@ export const SearchResultPopUp = (props: PropsSearch) => {
 
   const openTrack = (uri: string | undefined) => {
     if (uri) {
-      console.log("open", uri);
       dispatch(addTrack(uri));
     }
   };

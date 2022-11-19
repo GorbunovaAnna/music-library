@@ -23,11 +23,8 @@ interface props {
 export const Main = ({code}: props) => {
   
   const accessToken = useAuth(code);
-
-  console.log(accessToken)
   const dispatch = useAppDispatch();
   const releases = useSelector(getNewReleases);
-  console.log('releases', releases);
   
   // const recommendations = useSelector(getRecommendations);
   const isLoading = useSelector(getReleasesLoadingState);

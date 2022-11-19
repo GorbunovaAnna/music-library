@@ -25,7 +25,6 @@ const useAuth = (code) => {
           window.location = '/';
         }
       }else if(getCookie('refresh_token') && !getCookie('token')){
-        console.log('test', getCookie('refresh_token'))
         setRefreshToken(getCookie('refresh_token'))
       }
     })();

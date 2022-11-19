@@ -13,7 +13,6 @@ export const fetchUserInfo = createAsyncThunk(
         if (res.status !== 200) {
             thunkApi.rejectWithValue('error');
         } else {
-            console.log('userInfo', res.data);
             return res.data as SpotifyApi.CurrentUsersProfileResponse;
         }
     }

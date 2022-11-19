@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styles from "./index.module.scss";
 import { ImSearch } from "react-icons/im";
 import { SearchResultPopUp } from "../search-result-pop-up";
 import { getCookie } from "../../cookie";
 import SpotifyWebApi from "spotify-web-api-node";
 import { useSpotifyApi } from "../../hooks/useSpotifyApi";
+import { debounce } from "lodash";
 // import debounce from "lodash/debounce";
 
 export const Search = () => {
@@ -13,6 +14,11 @@ export const Search = () => {
   const spotifyApi = useSpotifyApi();
   const [data, setData] = useState<SpotifyApi.SearchResponse | null>(null);
   //  const debounceFn = useCallback(debounce(sendRequest, 500), []);
+
+  
+  // const debouncedChangeHandler = useCallback(
+  //   debounce(handleChange, 3000)
+  // , []);
 
   async function sendRequest() {  
     try{
@@ -44,7 +50,7 @@ export const Search = () => {
         name=""
         id=""
         placeholder="search..."
-        value={inputValue}
+        // value={inputValue}
         onChange={handleChange}
       />
       <button className={styles.button} onClick={sendRequest}>

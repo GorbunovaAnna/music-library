@@ -15,11 +15,9 @@ export const fetchNewReleases = createAsyncThunk(
             clientId: process.env.REACT_APP_CLIENT_ID,
           });
         const token = getCookie('token')
-        console.log('reaslsess token', token)
         if(token){
             spotifyApi.setAccessToken(token);
             const res = await spotifyApi.getNewReleases();
-            console.log('reeeee', res)
             return res.body as SpotifyApi.ListOfNewReleasesResponse;
         }
     }

@@ -2,13 +2,11 @@ import styles from "./index.module.scss";
 import { FiPlus } from "react-icons/fi";
 
 interface Props {
-  id: string;
   playlists: SpotifyApi.PlaylistObjectSimplified[] | undefined;
   openModal: () => void;
 }
 
-export const ContextMenu = ({ id, playlists, openModal }: Props) => {
-  console.log("wwwwwww", playlists);
+export const ContextMenu = ({ playlists, openModal }: Props) => {
 
   return (
     <div className={styles.wrapper}>

@@ -11,7 +11,6 @@ export const Header = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userInfo = useSelector(getUserInfo);
-  console.log("999999", userInfo);
  
 
   useEffect(() => {
