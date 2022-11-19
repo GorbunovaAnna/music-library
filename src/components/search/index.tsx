@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styles from "./index.module.scss";
 import { ImSearch } from "react-icons/im";
 import { SearchResultPopUp } from "../search-result-pop-up";
@@ -6,6 +6,7 @@ import { getCookie } from "../../cookie";
 import SpotifyWebApi from "spotify-web-api-node";
 import { useSpotifyApi } from "../../hooks/useSpotifyApi";
 import { debounce } from "lodash";
+import useDebounce from "../../hooks/useDebounce";
 // import debounce from "lodash/debounce";
 
 export const Search = () => {
@@ -13,23 +14,31 @@ export const Search = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const spotifyApi = useSpotifyApi();
   const [data, setData] = useState<SpotifyApi.SearchResponse | null>(null);
-  //  const debounceFn = useCallback(debounce(sendRequest, 500), []);
 
-  
-  // const debouncedChangeHandler = useCallback(
-  //   debounce(handleChange, 3000)
-  // , []);
+  const debouncedInputValue = useDebounce(inputValue, 700);
 
-  async function sendRequest() {  
-    try{
-      const res = await spotifyApi.search(inputValue, ['track', 'artist'], {limit: 3});
+ 
+  useEffect(
+    () => {
+      if (debouncedInputValue) {
+        sendRequest(debouncedInputValue);
+      } else {
+        setIsShowModal(false);
+      }
+    },
+    [debouncedInputValue]
+  );
+
+  async function sendRequest(value: string) {
+    try {
+      const res = await spotifyApi.search(value, ["track", "artist"], {
+        limit: 3,
+      });
       setData(res.body);
       setIsShowModal(true);
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-    
-    
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -39,7 +48,7 @@ export const Search = () => {
 
   function closeModal() {
     setIsShowModal(false);
-    setInputValue('');
+    setInputValue("");
   }
 
   return (
@@ -53,10 +62,16 @@ export const Search = () => {
         // value={inputValue}
         onChange={handleChange}
       />
-      <button className={styles.button} onClick={sendRequest}>
+      <button className={styles.button}>
         <ImSearch />
       </button>
-      {isShowModal && <SearchResultPopUp data={data} closeModal={closeModal} inputValue={inputValue}/>}
+      {isShowModal && (
+        <SearchResultPopUp
+          data={data}
+          closeModal={closeModal}
+          inputValue={inputValue}
+        />
+      )}
     </div>
   );
 };
