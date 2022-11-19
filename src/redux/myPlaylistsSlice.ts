@@ -35,31 +35,31 @@ export const addPlaylistToSpotify = createAsyncThunk(
     }
 )
 
-// export const deletePlaylistToSpotify = createAsyncThunk(
-//     'deletePlaylist/deletePlaylistStatus',
-//     async (data, thunkApi) => {
-//         // const access_token = getCookie('token');
-//         const spotifyApi = new SpotifyWebApi({
-//             clientId: process.env.REACT_APP_CLIENT_ID,
-//         });
-//         const token = getCookie('token')
-//         if (token) {
-//             spotifyApi.setAccessToken(token);
-//         }
-//         const res = await spotifyApi.unfollowPlaylist();
-//         console.log(res);
+export const deletePlaylistToSpotify = createAsyncThunk(
+    'deletePlaylist/deletePlaylistStatus',
+    async (id: string, thunkApi) => {
+        // const access_token = getCookie('token');
+        const spotifyApi = new SpotifyWebApi({
+            clientId: process.env.REACT_APP_CLIENT_ID,
+        });
+        const token = getCookie('token')
+        if (token) {
+            spotifyApi.setAccessToken(token);
+        }
+        const res = await spotifyApi.unfollowPlaylist(id);
+        console.log(res);
 
-//         // const res = await axios.get(`${spotifyURL}/users/${id}/playlists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
-//         if (res.statusCode !== 201) {
-//             thunkApi.rejectWithValue('error');
-//         } else {
-//             console.log('create playlist', res);
-//             return res.body;
-//         }
+        // const res = await axios.get(`${spotifyURL}/users/${id}/playlists`, { headers: { 'Authorization': `Bearer ${access_token}` } });
+        if (res.statusCode !== 200) {
+            thunkApi.rejectWithValue('error');
+        } else {
+            console.log('delete playlist', res);
+            return id;
+        }
 
-//         // const spotifyApi = new SpotifyWebApi
-//  }
-// )
+        // const spotifyApi = new SpotifyWebApi
+ }
+)
 
 interface MyPlaylistsState {
     myPlaylists: SpotifyApi.ListOfUsersPlaylistsResponse | undefined;
@@ -93,6 +93,9 @@ export const myPlaylistsSlice = createSlice({
             state.loading = false;
         }).addCase(fetchMyPlaylists.pending, (state) => {
             state.loading = true;
+        }).addCase(deletePlaylistToSpotify.fulfilled, (state, action) => {
+            console.log('action payload', action.payload)
+            // state.myPlaylists = state.myPlaylists?.items.filter(el=> el.id !== action.payload)
         })
     }
 })
