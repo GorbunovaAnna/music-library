@@ -124,3 +124,19 @@
     }
   }
 }
+@media (max-width: 900px) {
+  .wrapper {
+    padding: 30px 20px;
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .title {
+        align-self: center;
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+

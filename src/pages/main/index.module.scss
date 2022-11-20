@@ -4,6 +4,9 @@
     margin-bottom: 20px;
     margin-top: 20px;
     font-size: 28px;
+    @media (max-width: 700px) {
+      font-size: 20px
+    }
   }
   .playedTracksContainer {
     display: flex;
@@ -16,6 +19,9 @@
       margin-bottom: 20px;
       box-shadow: 4px 4px 4px rgb(66 66 66 / 15%);
       padding: 10px;
+      @media (max-width: 700px) {
+        width: 100px;
+      }
       .playedTrackImg {
         width: 100%;
         border-radius: 15px;
@@ -26,11 +32,17 @@
         &:hover {
             color: rgb(248, 200, 35);
         }
+        @media (max-width: 700px) {
+          font-size: 14px;
+        }
       }
       .playedTrackArtistName {
         cursor: pointer;
         &:hover {
             color: rgb(248, 200, 35);
+        }
+        @media (max-width: 700px) {
+          font-size: 14px;
         }
       }
     }

@@ -18,7 +18,7 @@ export const SearchResultPopUp = (props: PropsSearch) => {
   const handleNavigate = (url: string) => {
     props.closeModal();
     navigate(url);
-    // props.inputValue = "";
+
   };
 
   const openTrack = (uri: string | undefined) => {
