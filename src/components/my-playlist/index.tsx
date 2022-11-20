@@ -4,6 +4,7 @@ import { FiMusic, FiPlay, FiTrash2 } from "react-icons/fi";
 import { useAppDispatch } from "../../store";
 import { addTrack } from "../../redux/playerSlice";
 import { deletePlaylistToSpotify } from '../../redux/myPlaylistsSlice'
+import { useNavigate } from "react-router-dom";
 
 
 interface Props {
@@ -13,13 +14,18 @@ interface Props {
 export const MyPlaylist = ({ playlist }: Props) => {
   const [isActivePlay, setIsActivePlay] = useState(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const openTrack = (uri: string) => {
     dispatch(addTrack(uri));
   };
 
-  const deletePlaylist = (id: string) => {
-    dispatch(deletePlaylistToSpotify(id));
+  const deletePlaylist = () => {
+    dispatch(deletePlaylistToSpotify(playlist.id));
+  }
+
+  const openDetailsPage = ()=>{
+    navigate(`/playlist/${playlist.id}`);
   }
 
   return (
@@ -44,8 +50,8 @@ export const MyPlaylist = ({ playlist }: Props) => {
         )}
       </div>
       <div className={styles.titleContainer}>
-        <h3 className={styles.title}>{playlist.name}</h3>
-        { isActivePlay && <FiTrash2  className={styles.iconTrash} onClick={() => deletePlaylist(playlist.id)} />}
+        <h3 onClick={openDetailsPage} className={styles.title}>{playlist.name}</h3>
+        { isActivePlay && <FiTrash2  className={styles.iconTrash} onClick={() => deletePlaylist()} />}
       </div>
     </div>
   );

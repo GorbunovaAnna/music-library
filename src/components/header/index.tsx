@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import styles from "./index.module.scss";
 import { Search } from "../search";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,10 +11,9 @@ export const Header = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userInfo = useSelector(getUserInfo);
- 
 
   useEffect(() => {
-     dispatch(fetchUserInfo());
+    dispatch(fetchUserInfo());
   }, []);
 
   return (
@@ -25,7 +24,9 @@ export const Header = () => {
         alt="logo"
         onClick={() => navigate("/")}
       />
-      <Search />
+      <div className={styles.searchContainer}>
+        <Search />
+      </div>
       <nav>
         <ul>
           <Link to="/playlists">My playlists</Link>
@@ -33,9 +34,13 @@ export const Header = () => {
       </nav>
 
       <div className={styles.userInfo}>
-        {userInfo && <div className={styles.userAvatar}>
-          <img  src="" alt="" />
-        </div>}
+        {userInfo && (
+          <div className={styles.userAvatar}>
+            {userInfo.images?.length && (
+              <img src={userInfo.images[0].url} alt="" />
+            )}
+          </div>
+        )}
         <p className={styles.userName}>{userInfo?.display_name}</p>
         <button className={styles.btn}>Log out</button>
       </div>

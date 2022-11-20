@@ -11,6 +11,7 @@ import { PrivateRoute } from "./compound/private-route/index";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
 import { MyPlaylistsPage } from './pages/my-playlists-page/index';
+import { PlaylistPage } from "./pages/playlist-page";
 
 function App() {
   const code = new URLSearchParams(window.location.search).get('code');
@@ -34,6 +35,7 @@ function App() {
           <Route path="/artist/:id" element={<PrivateRoute><ArtistPage /></PrivateRoute>} />
           <Route path="/album/:id" element={<PrivateRoute><AlbumPage /></PrivateRoute>} />
           <Route path="/playlists/" element={<PrivateRoute><MyPlaylistsPage /></PrivateRoute>} />
+          <Route path="/playlist/:id" element={<PrivateRoute><PlaylistPage /></PrivateRoute>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer code={code || ''}/>

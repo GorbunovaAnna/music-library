@@ -12,7 +12,7 @@ import { addTrack } from "../../redux/playerSlice";
 import { title } from "process";
 import { useSelector } from "react-redux";
 import { getMyPlaylists } from "../../redux/selectors";
-import { addPlaylistToSpotify, fetchMyPlaylists } from "../../redux/myPlaylistsSlice";
+import { addPlaylistToSpotify, fetchMyPlaylists, postTrackToPlaylist } from "../../redux/myPlaylistsSlice";
 import { Modal } from "../../components/modal";
 
 export const AlbumPage = () => {
@@ -60,6 +60,11 @@ export const AlbumPage = () => {
     dispatch(addPlaylistToSpotify(inputValue));
 
   };
+
+  const addTrackToPlaylist = (id: string, uri: string) => {
+    const data = {id, uri};
+    dispatch(postTrackToPlaylist(data));
+  }
 
   useEffect(() => {
     const access_token = getCookie("token");
@@ -133,7 +138,9 @@ export const AlbumPage = () => {
               {isContextMenu === el.id && (
                 <ContextMenu
                   playlists={playlists?.items}
+                  trackUri={el.uri}
                   openModal={openModal}
+                  addTrackToPlaylist={addTrackToPlaylist}
                 />
               )}
             </div>

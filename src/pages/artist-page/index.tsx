@@ -31,7 +31,6 @@ export const ArtistPage = () => {
   };
 
   useEffect(() => {
-    // const access_token = getCookie("token");
     if (id) {
       spotifyApi.getArtistAlbums(id).then((res) => {
         setAlbums(res.body.items);
@@ -41,25 +40,7 @@ export const ArtistPage = () => {
         setArtist(res.body);
       });
     }
-    // axios
-    //   .get(`${spotifyURL}/artists/${id}/albums`, {
-    //     headers: { Authorization: `Bearer ${access_token}` },
-    //   })
-    //   .then((res) => {
-    //     setAlbums(res.data.items);
-    //     console.log("albums", res.data.items);
-    //   });
-    // axios
-    //   .get(`${spotifyURL}/artists/${id}`, {
-    //     headers: { Authorization: `Bearer ${access_token}` },
-    //   })
-    //   .then((res) => {
-    //     setArtist(res.data);
-    //     console.log("artist", res.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log("is er", e);
-    //   });
+
   }, [id]);
 
   return (

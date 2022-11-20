@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../../store";
 import { useSelector } from "react-redux";
-import { getUserInfo, getMyPlaylists, getReleasesLoadingState } from "../../redux/selectors";
+import {
+  getUserInfo,
+  getMyPlaylists,
+  getReleasesLoadingState,
+} from "../../redux/selectors";
 import { fetchMyPlaylists } from "../../redux/myPlaylistsSlice";
 import { MyPlaylist } from "../../components/my-playlist";
 import { Loader } from "../../components/loader";
@@ -25,12 +29,7 @@ export const MyPlaylistsPage = () => {
       {isLoading && <Loader />}
       <div className={styles.playlistContainer}>
         {myPlaylists?.items.map((el) => {
-          return (
-            <MyPlaylist 
-              key={el.id}
-              playlist={el}
-            />
-          );
+          return <MyPlaylist key={el.id} playlist={el} />;
         })}
       </div>
     </div>
