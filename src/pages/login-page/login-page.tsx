@@ -27,6 +27,7 @@
 //   );
 // };
 import React, { useEffect } from "react";
+import styles from './login-page.module.scss'
 import { getTokenFromUrl, loginUrl } from "../../spotify";
 import { getCookie, setCookie } from "../../cookie";
 import { useNavigate } from "react-router-dom";
@@ -52,11 +53,11 @@ const userInfo = useSelector(getUserInfo);
   }, []);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <p>Welcome to the music library</p>
       <p>Here you can listen to your favorite music and create unique playlists</p>
       <p>Follow the link and register</p>
-      <a href={loginUrl}>Sign in with spotify</a>
+      <a href={loginUrl} className={styles.link}>Sign in with spotify</a>
       {/* <span style={{ color: "#fff" }}>{authState.access_token}</span> */}
     </div>
   )

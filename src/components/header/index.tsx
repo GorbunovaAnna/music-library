@@ -6,15 +6,23 @@ import { useSelector } from "react-redux";
 import { getUserInfo } from "../../redux/selectors";
 import { useAppDispatch } from "../../store";
 import { fetchUserInfo } from "../../redux/userSlice";
+import { deleteCookie, getCookie } from '../../cookie';
 
 export const Header = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userInfo = useSelector(getUserInfo);
+  const token = getCookie('token')
 
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, []);
+
+  const logOut = () => {
+   deleteCookie('token');
+   deleteCookie('refresh_token');
+    window.location.reload();
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -42,7 +50,7 @@ export const Header = () => {
           </div>
         )}
         <p className={styles.userName}>{userInfo?.display_name}</p>
-        <button className={styles.btn}>Log out</button>
+        { userInfo && <button className={styles.btn} onClick={logOut}>Log out</button>}
       </div>
     </div>
   );
