@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.scss";
 import { LoginPage } from "./pages/login-page/login-page";
@@ -6,7 +5,6 @@ import { ArtistPage } from "./pages/artist-page";
 import { AlbumPage } from "./pages/album-page";
 import { Main } from "./pages/main/index";
 import { NotFoundPage } from "./pages/not-found-page";
-import { getTokenFromUrl, loginUrl } from "./spotify";
 import { PrivateRoute } from "./compound/private-route/index";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";

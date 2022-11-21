@@ -45,7 +45,6 @@ export const spotifyURL = 'https://api.spotify.com/v1';
 export const getTokenFromUrl = (): IAuthObject => {
     return window.location.hash.substring(1).split('&').reduce((acc: any, item: string) => {
         let parts = item.split('=');
-
         acc[parts[0]] = decodeURIComponent(parts[1]);
         return acc;
     }, {})
@@ -55,23 +54,7 @@ export const getTokenFromUrl = (): IAuthObject => {
 export const setTokenToCookie = () => {
 
 };
-// export const getSpotifyApi = () =>{
-//     const spotifyApiInstance = spotifyApi(); 
-//     // if(!spotifyApi.getAccessToken()){
-//     //     const spotifyApi = new SpotifyWebApi({
-//     //         clientId: process.env.REACT_APP_CLIENT_ID,
-//     //       });
-//     //       if(access_token){
-        
-//     //         spotifyApi.setAccessToken(access_token);
-//     //       }
 
-//     // }
-//     return spotifyApi = () =>{
-//         return {}
-//     }
-    
-// }
 
 
 export const getTokenFromCookie = () => {
